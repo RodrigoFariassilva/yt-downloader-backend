@@ -3,6 +3,9 @@ from flask_cors import CORS
 import yt_dlp
 import os
 from uuid import uuid4
+from dotenv import load_dotenv
+load_dotenv()
+
 
 app = Flask(__name__)
 CORS(app)
@@ -52,4 +55,6 @@ def serve_file(filename):
     return app.send_static_file(f"downloads/{filename}")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
